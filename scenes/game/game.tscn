@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dk4igaxebwksc"]
+[gd_scene load_steps=11 format=3 uid="uid://dk4igaxebwksc"]
 
 [ext_resource type="Texture2D" uid="uid://d2cse70rgc1ic" path="res://assets/background/clouds_2.png" id="1_2qcfb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_uqaol"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c4h73fddkm4cy" path="res://scenes/plane_cb/plane_cb.tscn" id="3_dayjw"]
 [ext_resource type="PackedScene" uid="uid://u60tgxmgm5q8" path="res://scenes/pipes/pipes.tscn" id="4_tguhs"]
 [ext_resource type="PackedScene" uid="uid://bexua0xclge16" path="res://scenes/game_over/game_over.tscn" id="6_kejfr"]
+[ext_resource type="PackedScene" uid="uid://c5rglt2gthwj2" path="res://scenes/hud/hud.tscn" id="7_hu4tm"]
+[ext_resource type="AudioStream" uid="uid://c8xqes3ynpj70" path="res://assets/audio/game_over.wav" id="8_520fq"]
 
 [sub_resource type="GDScript" id="GDScript_pnhb0"]
 script/source = "extends Sprite2D
@@ -63,5 +65,10 @@ autostart = true
 
 [node name="GameOver" parent="CanvasLayer" instance=ExtResource("6_kejfr")]
 visible = false
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("7_hu4tm")]
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_520fq")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
