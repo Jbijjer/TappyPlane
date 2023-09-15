@@ -1,13 +1,14 @@
 extends Node2D
 
 @export var pipes_scene: PackedScene
+var broken_glass_scene = preload("res://scenes/glass.tscn")
 
 @onready var pipes_holder = $PipesHolder
 @onready var spawn_u = $SpawnU
 @onready var spawn_l = $SpawnL
 @onready var spawn_timer = $SpawnTimer
 @onready var game_over_sound = $GameOverSound
-@onready var sprite_2d = $Sprite2D
+@onready var plane_cb = $PlaneCB
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +21,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
+	
 func spawn_pipes() -> void:
 	var y_pos = randf_range(spawn_u.position.y, spawn_l.position.y)
 	var new_pipes = pipes_scene.instantiate()
@@ -45,4 +46,9 @@ func on_game_over():
 
 
 func on_glass_breaks() -> void:
-	sprite_2d.visible = true
+	var glass = broken_glass_scene.instantiate()
+	add_child(glass)
+	
+	glass.position.x = plane_cb.position.x
+	glass.position.y = plane_cb.position.y
+

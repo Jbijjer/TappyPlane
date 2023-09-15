@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfyrf6i6w4xvh"]
+
+[ext_resource type="Texture2D" uid="uid://d3uoqwmtnjp0c" path="res://assets/box explode animation/cracking-glass.png" id="1_i1036"]
+
+[node name="glass" type="Node2D"]
+z_index = 2
+scale = Vector2(0.648139, 0.648139)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i1036")

@@ -14,6 +14,4 @@ func _process(delta):
 	
 func _on_body_entered(body):	
 	if body.is_in_group(GameManager.GROUP_PLANE) == true:
-		animated_sprite_2d.play("explode")
-		body.die()
-		GameManager.on_glass_breaks.emit()
+		body.explode()

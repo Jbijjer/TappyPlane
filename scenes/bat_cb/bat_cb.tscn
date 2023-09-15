@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4h73fddkm4cy"]
+[gd_scene load_steps=22 format=3 uid="uid://c4h73fddkm4cy"]
 
 [ext_resource type="Texture2D" uid="uid://bw63aoabyk6aw" path="res://assets/bat animation - when box explode/bat-explode-00.png" id="1_kshcw"]
 [ext_resource type="Texture2D" uid="uid://cb4nlpc6nbwhd" path="res://assets/bat animation - when box explode/bat-explode-01.png" id="2_m5qxy"]
@@ -33,6 +33,9 @@ var _dead: bool = false
 func _ready():
 	pass # Replace with function body.
 
+func _process(delta):	
+	if animated_sprite_2d.animation == \"dead\" && animated_sprite_2d.frame == 6:
+		GameManager.on_glass_breaks.emit()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -54,17 +57,17 @@ func die() -> void:
 	if _dead == true:
 		return
 	_dead = true
-	animated_sprite_2d.play(\"dead\")
 	GameManager.on_game_over.emit()
 	set_physics_process(false)
 	
 func spiked() -> void:
-	if _dead == true:
-		return
-	_dead = true
 	animated_sprite_2d.play(\"spiked\")
-	GameManager.on_game_over.emit()
-	set_physics_process(false)
+	die()
+
+func explode() -> void:
+	animated_sprite_2d.play(\"dead\")
+	animated_sprite_2d.animation_finished.emit()
+	die()
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_37hr2"]
@@ -150,8 +153,39 @@ tracks/0/keys = {
 "values": [0.0, -0.349066, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_kw3gy"]
+resource_name = "explode"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_glass_breaks"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gbbcx"]
 _data = {
+"explode": SubResource("Animation_kw3gy"),
 "fly": SubResource("Animation_xwsfj")
 }
 
@@ -174,6 +208,7 @@ scale = Vector2(0.995798, 0.824239)
 shape = SubResource("CapsuleShape2D_du1c1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "explode"
 libraries = {
 "": SubResource("AnimationLibrary_gbbcx")
 }
