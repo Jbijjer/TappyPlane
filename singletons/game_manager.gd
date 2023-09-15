@@ -35,3 +35,15 @@ func load_game_scene() -> void:
 	
 func load_main_scene() -> void:
 	get_tree().change_scene_to_packed(main_scene)
+	
+	
+func save(content):
+	var file = FileAccess.open("user://saved_data.sav", FileAccess.WRITE)
+	file.store_16(content)
+
+func load():
+	var file = FileAccess.open("user://saved_data.sav", FileAccess.READ)
+	if file == null:
+		return null
+	var content = file.get_16()	
+	return content

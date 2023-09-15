@@ -27,7 +27,9 @@ func on_game_over() -> void:
 func run_sequence() -> void:
 	game_over_label.hide()
 	press_space_label.show()
+	GameManager.save(GameManager.get_high_score())
 	_can_press_space = true
+	
 	
 
 func _on_timer_timeout():

@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://d2cse70rgc1ic" path="res://assets/background/clouds_2.png" id="1_2qcfb"]
 [ext_resource type="Script" path="res://scenes/game/game.gd" id="1_uqaol"]
-[ext_resource type="Texture2D" uid="uid://bnas1q48oyvwh" path="res://assets/background/rocks_2.png" id="2_ud3bt"]
 [ext_resource type="PackedScene" uid="uid://c4h73fddkm4cy" path="res://scenes/plane_cb/plane_cb.tscn" id="3_dayjw"]
 [ext_resource type="PackedScene" uid="uid://u60tgxmgm5q8" path="res://scenes/pipes/pipes.tscn" id="4_tguhs"]
+[ext_resource type="Texture2D" uid="uid://dam16mk7los5a" path="res://assets/background/BG.png" id="4_wcx8v"]
 [ext_resource type="PackedScene" uid="uid://bexua0xclge16" path="res://scenes/game_over/game_over.tscn" id="6_kejfr"]
 [ext_resource type="PackedScene" uid="uid://c5rglt2gthwj2" path="res://scenes/hud/hud.tscn" id="7_hu4tm"]
 [ext_resource type="AudioStream" uid="uid://c8xqes3ynpj70" path="res://assets/audio/game_over.wav" id="8_520fq"]
@@ -24,7 +24,7 @@ func _process(delta):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5go33"]
-size = Vector2(490, 45)
+size = Vector2(747, 79)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_uqaol")
@@ -35,9 +35,10 @@ position = Vector2(247, 370)
 texture = ExtResource("1_2qcfb")
 script = SubResource("GDScript_pnhb0")
 
-[node name="Rocks2" type="Sprite2D" parent="."]
-position = Vector2(-112, 320)
-texture = ExtResource("2_ud3bt")
+[node name="Bg" type="Sprite2D" parent="."]
+position = Vector2(165.333, 463.25)
+scale = Vector2(0.833333, 0.833333)
+texture = ExtResource("4_wcx8v")
 
 [node name="PlaneCB" parent="." instance=ExtResource("3_dayjw")]
 position = Vector2(81, 485)
@@ -46,16 +47,16 @@ position = Vector2(81, 485)
 position = Vector2(0, 811)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(241, 22)
+position = Vector2(253, 74)
 shape = SubResource("RectangleShape2D_5go33")
 
 [node name="PipesHolder" type="Node" parent="."]
 
 [node name="SpawnL" type="Marker2D" parent="."]
-position = Vector2(530, 600)
+position = Vector2(580, 526)
 
 [node name="SpawnU" type="Marker2D" parent="."]
-position = Vector2(530, 300)
+position = Vector2(577, 352)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 1.376
@@ -67,6 +68,10 @@ autostart = true
 visible = false
 
 [node name="Hud" parent="CanvasLayer" instance=ExtResource("7_hu4tm")]
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = 2.0
 
 [node name="GameOverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_520fq")

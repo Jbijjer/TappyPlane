@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4h73fddkm4cy"]
+[gd_scene load_steps=9 format=3 uid="uid://c4h73fddkm4cy"]
 
-[ext_resource type="Texture2D" uid="uid://brgf2bfck3131" path="res://assets/plane/planes_sheet.png" id="1_5822f"]
+[ext_resource type="Texture2D" uid="uid://bgheerp6j8v6g" path="res://assets/plane/Fly (1).png" id="1_byico"]
+[ext_resource type="Texture2D" uid="uid://bo360j4ufm1ui" path="res://assets/plane/Dead (1).png" id="1_jpm1v"]
+[ext_resource type="Texture2D" uid="uid://bmxtkldex21lp" path="res://assets/plane/Fly (2).png" id="2_gv5dx"]
 
 [sub_resource type="GDScript" id="GDScript_q2crd"]
 script/source = "extends CharacterBody2D
@@ -40,34 +42,27 @@ func die() -> void:
 	if _dead == true:
 		return
 	_dead = true
-	animated_sprite_2d.stop()
+	animated_sprite_2d.play(\"dead\")
 	GameManager.on_game_over.emit()
 	set_physics_process(false)
 "
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ilg8e"]
-atlas = ExtResource("1_5822f")
-region = Rect2(0, 0, 88, 73)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sabf4"]
-atlas = ExtResource("1_5822f")
-region = Rect2(88, 0, 88, 73)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x80ep"]
-atlas = ExtResource("1_5822f")
-region = Rect2(176, 0, 88, 73)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_37hr2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ilg8e")
+"texture": ExtResource("1_jpm1v")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_byico")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sabf4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x80ep")
+"texture": ExtResource("2_gv5dx")
 }],
 "loop": true,
 "name": &"fly",
@@ -75,8 +70,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_du1c1"]
-radius = 25.9929
-height = 69.9855
+radius = 15.0564
+height = 63.0872
 
 [sub_resource type="Animation" id="Animation_xwsfj"]
 resource_name = "fly"
@@ -100,16 +95,18 @@ _data = {
 }
 
 [node name="PlaneCB" type="CharacterBody2D" groups=["plane"]]
+scale = Vector2(1.48, 1.48)
 script = SubResource("GDScript_q2crd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
+position = Vector2(1.20036, -3.5)
+scale = Vector2(0.115894, 0.115894)
 sprite_frames = SubResource("SpriteFrames_37hr2")
 animation = &"fly"
 autoplay = "fly"
-frame_progress = 0.616307
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -5)
 rotation = -1.56428
 scale = Vector2(0.995798, 0.824239)
 shape = SubResource("CapsuleShape2D_du1c1")
