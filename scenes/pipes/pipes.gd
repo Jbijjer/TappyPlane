@@ -22,11 +22,6 @@ func player_scored() -> void:
 	score_sound.play()
 
 
-func _on_pipe_body_entered(body):
-	if body.is_in_group(GameManager.GROUP_PLANE) == true:
-		body.die()
-
-
-func _on_laser_body_entered(body):	
+func _on_area_2d_body_entered(body):
 	if body.is_in_group(GameManager.GROUP_PLANE) == true:
 		player_scored()

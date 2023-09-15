@@ -1,0 +1,179 @@
+[gd_scene load_steps=21 format=3 uid="uid://c4h73fddkm4cy"]
+
+[ext_resource type="Texture2D" uid="uid://bw63aoabyk6aw" path="res://assets/bat animation - when box explode/bat-explode-00.png" id="1_kshcw"]
+[ext_resource type="Texture2D" uid="uid://cb4nlpc6nbwhd" path="res://assets/bat animation - when box explode/bat-explode-01.png" id="2_m5qxy"]
+[ext_resource type="Texture2D" uid="uid://dkljrp2mqfk5y" path="res://assets/bat animation - when box explode/bat-explode-02.png" id="3_a225m"]
+[ext_resource type="Texture2D" uid="uid://o5ljrm4v3g8c" path="res://assets/bat animation - when box explode/bat-explode-03.png" id="4_msd3w"]
+[ext_resource type="Texture2D" uid="uid://cpn8fos04gdkh" path="res://assets/bat animation - when box explode/bat-explode-04.png" id="5_reh2k"]
+[ext_resource type="Texture2D" uid="uid://bmkdxtmwbb5xw" path="res://assets/bat animation - when box explode/bat-explode-05.png" id="6_c4o4e"]
+[ext_resource type="Texture2D" uid="uid://hqmj5qp8sij" path="res://assets/bat animation - when box explode/bat-explode-06.png" id="7_icjlf"]
+[ext_resource type="Texture2D" uid="uid://b06slm7b2cbb7" path="res://assets/BAT flying Animation/bat-fly-01.png" id="8_sg6rj"]
+[ext_resource type="Texture2D" uid="uid://decrehn4ubkqq" path="res://assets/BAT flying Animation/bat-fly-02.png" id="9_vnw4c"]
+[ext_resource type="Texture2D" uid="uid://j87qq1pcyqa7" path="res://assets/BAT flying Animation/bat-fly-03.png" id="10_rfjs1"]
+[ext_resource type="Texture2D" uid="uid://cbltmxn11j1ro" path="res://assets/BAT flying Animation/bat-fly-04.png" id="11_vic1y"]
+[ext_resource type="Texture2D" uid="uid://kq1gx1dl2o5o" path="res://assets/BAT flying Animation/bat-fly-05.png" id="12_vseu2"]
+[ext_resource type="Texture2D" uid="uid://skyf3k88nxdy" path="res://assets/BAT flying Animation/bat-fly-06.png" id="13_g7u3s"]
+[ext_resource type="Texture2D" uid="uid://na006igp8xaf" path="res://assets/bear trap/bear-trap-botom-Bat-animation-01.png" id="14_777br"]
+[ext_resource type="Texture2D" uid="uid://cnleeqis4iciq" path="res://assets/bear trap/bear-trap-botom-Bat-animation-02.png" id="15_7kaut"]
+
+[sub_resource type="GDScript" id="GDScript_q2crd"]
+script/source = "extends CharacterBody2D
+
+#signal on_plane_died
+
+@onready var animation_player = $AnimationPlayer
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+const GRAVITY:float = 1800.0
+const POWER: float = -400.0
+
+var _dead: bool = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta):
+	velocity.y += GRAVITY * delta
+	
+	fly()
+	
+	move_and_slide()
+	
+	if is_on_floor() == true:
+		die()
+
+func fly() -> void:
+	if Input.is_action_just_pressed(\"fly\") == true: 
+		velocity.y = POWER
+		animation_player.play(\"fly\")
+	
+func die() -> void:
+	if _dead == true:
+		return
+	_dead = true
+	animated_sprite_2d.play(\"dead\")
+	GameManager.on_game_over.emit()
+	set_physics_process(false)
+	
+func spiked() -> void:
+	if _dead == true:
+		return
+	_dead = true
+	animated_sprite_2d.play(\"spiked\")
+	GameManager.on_game_over.emit()
+	set_physics_process(false)
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37hr2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_kshcw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m5qxy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a225m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_msd3w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_reh2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_c4o4e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_icjlf")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_sg6rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vnw4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rfjs1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vic1y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vseu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_g7u3s")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_777br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7kaut")
+}],
+"loop": false,
+"name": &"spiked",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_du1c1"]
+radius = 15.0564
+height = 31.1501
+
+[sub_resource type="Animation" id="Animation_xwsfj"]
+resource_name = "fly"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.349066, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gbbcx"]
+_data = {
+"fly": SubResource("Animation_xwsfj")
+}
+
+[node name="BatCB" type="CharacterBody2D" groups=["plane"]]
+scale = Vector2(1.48, 1.48)
+collision_mask = 8
+script = SubResource("GDScript_q2crd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2.36487, -4.84899)
+scale = Vector2(0.260905, 0.260905)
+sprite_frames = SubResource("SpriteFrames_37hr2")
+animation = &"dead"
+autoplay = "fly"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3.37838, -4.72973)
+rotation = -1.56428
+scale = Vector2(0.995798, 0.824239)
+shape = SubResource("CapsuleShape2D_du1c1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gbbcx")
+}

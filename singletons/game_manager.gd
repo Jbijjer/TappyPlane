@@ -2,6 +2,7 @@ extends Node
 
 signal on_game_over
 signal on_score_updated
+signal on_glass_breaks
 
 const GROUP_PLANE: String = "plane"
 
