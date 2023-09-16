@@ -1,12 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://u60tgxmgm5q8"]
+[gd_scene load_steps=5 format=3 uid="uid://u60tgxmgm5q8"]
 
 [ext_resource type="Script" path="res://scenes/pipes/pipes.gd" id="1_th5p3"]
 [ext_resource type="PackedScene" uid="uid://be0u5ha1jvdix" path="res://scenes/pipe/pipe.tscn" id="2_suk56"]
-[ext_resource type="PackedScene" uid="uid://c6ydw2sh6dwqq" path="res://scenes/bear_trap/bear_trap.tscn" id="4_cmau3"]
 [ext_resource type="AudioStream" uid="uid://ci24afukf348h" path="res://assets/audio/score.wav" id="4_svoay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8llm"]
-size = Vector2(20, 172)
+size = Vector2(20, 293)
 
 [node name="Pipes" type="Node2D"]
 script = ExtResource("1_th5p3")
@@ -14,32 +13,8 @@ script = ExtResource("1_th5p3")
 [node name="Upper" parent="." instance=ExtResource("2_suk56")]
 position = Vector2(0, -864)
 
-[node name="Upper3" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 384)
-
-[node name="Upper7" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 320)
-
-[node name="Upper8" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 448)
-
 [node name="Upper6" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 640)
-
-[node name="Upper10" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 704)
-
-[node name="Upper5" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 192)
-
-[node name="Upper4" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 256)
-
-[node name="Upper2" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 512)
-
-[node name="Upper9" parent="Upper" instance=ExtResource("2_suk56")]
-position = Vector2(0, 576)
+position = Vector2(0, 693)
 
 [node name="Upper12" parent="Upper" instance=ExtResource("2_suk56")]
 position = Vector2(0, 1104)
@@ -61,9 +36,6 @@ position = Vector2(0, 438)
 
 [node name="Upper6" parent="Upper2" instance=ExtResource("2_suk56")]
 position = Vector2(0, 630)
-
-[node name="Upper10" parent="Upper2" instance=ExtResource("2_suk56")]
-position = Vector2(0, 694)
 
 [node name="Upper11" parent="Upper2" instance=ExtResource("2_suk56")]
 position = Vector2(0, 758)
@@ -114,17 +86,10 @@ scale = Vector2(0.475, 4.4)
 [node name="ScoreSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_svoay")
 
-[node name="BearTrap" parent="." instance=ExtResource("4_cmau3")]
-position = Vector2(-32, 99)
-
-[node name="BearTrap2" parent="." instance=ExtResource("4_cmau3")]
-position = Vector2(-31, -29)
-rotation = -3.14159
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(16, 32)
+position = Vector2(15, 41)
 shape = SubResource("RectangleShape2D_h8llm")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

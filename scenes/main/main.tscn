@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://b0nxmeqo5mddr"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_sl8d3"]
-[ext_resource type="Texture2D" uid="uid://c34vmr2y1ny6f" path="res://assets/background/sky.png" id="2_uxuvm"]
+[ext_resource type="Texture2D" uid="uid://bsfkw5k6ga8y4" path="res://assets/background/fire_background.png" id="2_br6uy"]
 [ext_resource type="LabelSettings" uid="uid://g2n55dbcqrsg" path="res://assets/LG_72_Red.tres" id="3_ncbh5"]
 [ext_resource type="FontFile" uid="uid://bpnkjbp5mgrta" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="4_gjp3j"]
 [ext_resource type="AudioStream" uid="uid://dijbvoeloq7ik" path="res://assets/audio/bgm_menu.mp3" id="5_vmc3j"]
@@ -74,14 +74,14 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -720.0
-offset_top = -113.0
-offset_right = 720.0
-offset_bottom = 113.0
+offset_left = -471.0
+offset_top = -41.0
+offset_right = 740.0
+offset_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.759999, 1)
-texture = ExtResource("2_uxuvm")
+texture = ExtResource("2_br6uy")
 
 [node name="MC" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -98,8 +98,8 @@ theme_override_constants/margin_bottom = 24
 [node name="Label" type="Label" parent="MC"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "TAPPY
-PLANE"
+text = "FLAPPY
+DRAGON"
 label_settings = ExtResource("3_ncbh5")
 horizontal_alignment = 1
 vertical_alignment = 1

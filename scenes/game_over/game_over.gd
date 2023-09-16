@@ -3,6 +3,7 @@ extends Control
 @onready var game_over_label = $GameOverLabel
 @onready var timer = $Timer
 @onready var press_space_label = $PressSpaceLabel
+@onready var _25_pts_label = $"25ptsLabel"
 
 var _can_press_space: bool = false
 
@@ -22,12 +23,15 @@ func _process(delta):
 func on_game_over() -> void:
 	show()
 	timer.start()
+	if(GameManager.get_score() > 25):
+		_25_pts_label.show()
+	
 	
 	
 func run_sequence() -> void:
 	game_over_label.hide()
 	press_space_label.show()
-	GameManager.save(GameManager.get_high_score())
+	GameManager.save_score(GameManager.get_high_score())
 	_can_press_space = true
 	
 	

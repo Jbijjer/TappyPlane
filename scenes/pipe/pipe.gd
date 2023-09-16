@@ -8,10 +8,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _process(_delta):
+	if animated_sprite_2d.animation == "explode" && animated_sprite_2d.frame == 5:
+		GameManager.on_glass_breaks.emit(animated_sprite_2d.global_position.x, animated_sprite_2d.global_position.y)
 	
 	
 func _on_body_entered(body):	
 	if body.is_in_group(GameManager.GROUP_PLANE) == true:
-		body.explode()
+		animated_sprite_2d.play("explode")
+		body.die()

@@ -6,7 +6,7 @@ var data = {highscore = 0}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var high_score = GameManager.load()
+	var high_score = GameManager.load_score()
 	if high_score != null:
 		high_score_label_2.text = str(high_score)
 	else:
