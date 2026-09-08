@@ -54,7 +54,6 @@ func stop_scrolling() -> void:
 
 func _on_spawn_timer_timeout():
 	spawn_pipes()
-	spawn_timer.wait_time = GameManager.get_spawn_interval()
 
 
 func _on_flames_spawn_timer_timeout():

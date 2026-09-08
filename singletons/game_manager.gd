@@ -9,13 +9,7 @@ signal on_near_miss(x: float, y: float)
 
 const GROUP_PLANE: String = "plane"
 
-const BASE_SCROLL_SPEED: float = 120.0
-const SCROLL_SPEED_PER_POINT: float = 1.5
-const MAX_SCROLL_SPEED: float = 260.0
-
-const BASE_SPAWN_INTERVAL: float = 1.35
-const SPAWN_INTERVAL_PER_POINT: float = 0.01
-const MIN_SPAWN_INTERVAL: float = 0.7
+const SCROLL_SPEED: float = 120.0
 
 const MILESTONES: Array[int] = [25, 50, 100, 200]
 
@@ -54,11 +48,7 @@ func get_highest_milestone_reached() -> int:
 
 
 func get_scroll_speed() -> float:
-	return min(BASE_SCROLL_SPEED + float(_score) * SCROLL_SPEED_PER_POINT, MAX_SCROLL_SPEED)
-
-
-func get_spawn_interval() -> float:
-	return max(BASE_SPAWN_INTERVAL - float(_score) * SPAWN_INTERVAL_PER_POINT, MIN_SPAWN_INTERVAL)
+	return SCROLL_SPEED
 
 
 func load_game_scene() -> void:
