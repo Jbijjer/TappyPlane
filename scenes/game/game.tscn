@@ -64,12 +64,5 @@ autostart = true
 
 [node name="FlamesHolder" type="Node" parent="."]
 
-[node name="LaserSpawnTimer" type="Timer" parent="."]
-wait_time = 4.5
-autostart = true
-
-[node name="LaserHolder" type="Node" parent="."]
-
 [connection signal="timeout" from="PipesSpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="FlamesSpawnTimer" to="." method="_on_flames_spawn_timer_timeout"]
-[connection signal="timeout" from="LaserSpawnTimer" to="." method="_on_laser_spawn_timer_timeout"]
