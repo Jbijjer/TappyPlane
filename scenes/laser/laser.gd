@@ -12,7 +12,7 @@ const SAFE_COLOR := Color(1, 1, 1, 0.25)
 const WARNING_COLOR := Color(1, 0.8, 0.2, 0.6)
 const DEADLY_COLOR := Color(1, 0.2, 0.2, 1.0)
 
-@onready var sprite = $Sprite2D
+@onready var beam = $Beam
 @onready var collision_shape = $CollisionShape2D
 @onready var blink_timer = $BlinkTimer
 
@@ -37,11 +37,11 @@ func _enter_state(state: int) -> void:
 	collision_shape.disabled = state != State.DEADLY
 	match state:
 		State.SAFE:
-			sprite.modulate = SAFE_COLOR
+			beam.color = SAFE_COLOR
 		State.WARNING:
-			sprite.modulate = WARNING_COLOR
+			beam.color = WARNING_COLOR
 		State.DEADLY:
-			sprite.modulate = DEADLY_COLOR
+			beam.color = DEADLY_COLOR
 	blink_timer.wait_time = STATE_DURATIONS[state]
 	blink_timer.start()
 
