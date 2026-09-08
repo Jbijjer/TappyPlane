@@ -23,7 +23,8 @@ func _process(delta):
 func on_game_over() -> void:
 	show()
 	timer.start()
-	if(GameManager.get_score() > 25):
+	if GameManager.get_highest_milestone_reached() > 0:
+		_25_pts_label.text = "%d pts !" % GameManager.get_highest_milestone_reached()
 		_25_pts_label.show()
 	
 	
