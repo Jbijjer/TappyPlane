@@ -3,6 +3,7 @@ extends Node2D
 var pipes_scene = preload("res://scenes/pipes/pipes.tscn")
 var broken_glass_scene = preload("res://scenes/glass.tscn")
 var flames_scene = preload("res://scenes/flame/flame.tscn")
+var near_miss_fx_scene = preload("res://scenes/near_miss_fx/near_miss_fx.tscn")
 
 @onready var pipes_holder = $PipesHolder
 @onready var flames_holder = $FlamesHolder
@@ -18,6 +19,7 @@ func _ready():
 	GameManager.set_score(0)
 	GameManager.on_game_over.connect(on_game_over)
 	GameManager.on_glass_breaks.connect(on_glass_breaks)
+	GameManager.on_near_miss.connect(on_near_miss)
 	spawn_pipes()
 
 
@@ -52,6 +54,7 @@ func stop_scrolling() -> void:
 
 func _on_spawn_timer_timeout():
 	spawn_pipes()
+	spawn_timer.wait_time = GameManager.get_spawn_interval()
 
 
 func _on_flames_spawn_timer_timeout():
@@ -66,6 +69,14 @@ func on_game_over():
 func on_glass_breaks(x, y) -> void:
 	var glass = broken_glass_scene.instantiate()
 	add_child(glass)
-	
+
 	glass.position.x = x
 	glass.position.y = y
+
+
+func on_near_miss(x, y) -> void:
+	var fx = near_miss_fx_scene.instantiate()
+	add_child(fx)
+
+	fx.position.x = x
+	fx.position.y = y
