@@ -14,9 +14,9 @@ enum Form { DRAGON, UNICORN }
 
 # Per-form flight physics. Values are a first pass -- tune by feel.
 const DRAGON_GRAVITY: float = 1800.0
-const DRAGON_POWER: float = -400.0
+const DRAGON_POWER: float = -480.0  # +20% climb power from original -400.0
 const UNICORN_GRAVITY: float = 520.0  # -60% fall speed from original 1300.0
-const UNICORN_POWER: float = -480.0
+const UNICORN_POWER: float = -384.0  # -20% climb power from original -480.0
 
 # Per-form scroll speed. Transitions are smoothed (see _process), not instant.
 const DRAGON_SCROLL_SPEED: float = 60.0  # -50% from original 120.0
