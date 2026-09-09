@@ -6,16 +6,31 @@ signal on_glass_breaks
 signal on_explode
 signal on_milestone_reached(milestone: int)
 signal on_near_miss(x: float, y: float)
+signal on_form_changed(form: int)
 
 const GROUP_PLANE: String = "plane"
 
-const SCROLL_SPEED: float = 120.0
+enum Form { DRAGON, UNICORN }
+
+# Per-form flight physics. Values are a first pass -- tune by feel.
+const DRAGON_GRAVITY: float = 1800.0
+const DRAGON_POWER: float = -400.0
+const UNICORN_GRAVITY: float = 1300.0
+const UNICORN_POWER: float = -480.0
+
+# Per-form scroll speed. Transitions are smoothed (see _process), not instant.
+const DRAGON_SCROLL_SPEED: float = 120.0
+const UNICORN_SCROLL_SPEED: float = 170.0
+const SCROLL_SPEED_SMOOTHING: float = 3.5
 
 const MILESTONES: Array[int] = [25, 50, 100, 200]
 
 var _score: int = 0
 var _high_score: int = 0
 var _next_milestone_index: int = 0
+
+var current_form: int = Form.DRAGON
+var _current_scroll_speed: float = DRAGON_SCROLL_SPEED
 
 var game_scene: PackedScene = preload("res://scenes/game/game.tscn")
 var main_scene: PackedScene = preload("res://scenes/main/main.tscn")
@@ -47,8 +62,31 @@ func get_highest_milestone_reached() -> int:
 	return MILESTONES[_next_milestone_index - 1] if _next_milestone_index > 0 else 0
 
 
+func _process(delta: float) -> void:
+	var target = DRAGON_SCROLL_SPEED if current_form == Form.DRAGON else UNICORN_SCROLL_SPEED
+	_current_scroll_speed = lerp(_current_scroll_speed, target, clamp(delta * SCROLL_SPEED_SMOOTHING, 0.0, 1.0))
+
+
 func get_scroll_speed() -> float:
-	return SCROLL_SPEED
+	return _current_scroll_speed
+
+
+func get_gravity() -> float:
+	return DRAGON_GRAVITY if current_form == Form.DRAGON else UNICORN_GRAVITY
+
+
+func get_power() -> float:
+	return DRAGON_POWER if current_form == Form.DRAGON else UNICORN_POWER
+
+
+func switch_form() -> void:
+	current_form = Form.UNICORN if current_form == Form.DRAGON else Form.DRAGON
+	on_form_changed.emit(current_form)
+
+
+func reset_form() -> void:
+	current_form = Form.DRAGON
+	_current_scroll_speed = DRAGON_SCROLL_SPEED
 
 
 func load_game_scene() -> void:

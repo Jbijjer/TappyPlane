@@ -17,6 +17,7 @@ var near_miss_fx_scene = preload("res://scenes/near_miss_fx/near_miss_fx.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	GameManager.set_score(0)
+	GameManager.reset_form()
 	GameManager.on_game_over.connect(on_game_over)
 	GameManager.on_glass_breaks.connect(on_glass_breaks)
 	GameManager.on_near_miss.connect(on_near_miss)
@@ -79,3 +80,7 @@ func on_near_miss(x, y) -> void:
 
 	fx.position.x = x
 	fx.position.y = y
+
+
+func _on_transform_button_pressed():
+	GameManager.switch_form()
