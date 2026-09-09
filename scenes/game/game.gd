@@ -13,6 +13,7 @@ var near_miss_fx_scene = preload("res://scenes/near_miss_fx/near_miss_fx.tscn")
 @onready var game_over_sound = $GameOverSound
 @onready var plane_cb = $PlaneCB
 @onready var flames_spawn_timer = $FlamesSpawnTimer
+@onready var debug_invincible_button = $CanvasLayer/DebugInvincibleButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +22,8 @@ func _ready():
 	GameManager.on_game_over.connect(on_game_over)
 	GameManager.on_glass_breaks.connect(on_glass_breaks)
 	GameManager.on_near_miss.connect(on_near_miss)
+	debug_invincible_button.visible = OS.is_debug_build()
+	debug_invincible_button.button_pressed = GameManager.debug_invincible
 	spawn_pipes()
 
 
@@ -84,3 +87,7 @@ func on_near_miss(x, y) -> void:
 
 func _on_transform_button_pressed():
 	GameManager.switch_form()
+
+
+func _on_debug_invincible_button_toggled(toggled_on: bool):
+	GameManager.debug_invincible = toggled_on

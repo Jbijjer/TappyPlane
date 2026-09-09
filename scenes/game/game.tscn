@@ -63,6 +63,19 @@ offset_bottom = -20.0
 grow_vertical = 0
 text = "FORME"
 
+[node name="DebugInvincibleButton" type="CheckButton" parent="CanvasLayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_top = 84.0
+offset_right = -12.0
+offset_bottom = 134.0
+grow_horizontal = 0
+text = "INVINCIBLE"
+
 [node name="GameOverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_520fq")
 
@@ -79,3 +92,4 @@ autostart = true
 [connection signal="timeout" from="PipesSpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="FlamesSpawnTimer" to="." method="_on_flames_spawn_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/TransformButton" to="." method="_on_transform_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/DebugInvincibleButton" to="." method="_on_debug_invincible_button_toggled"]

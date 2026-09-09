@@ -32,6 +32,11 @@ var _next_milestone_index: int = 0
 var current_form: int = Form.DRAGON
 var _current_scroll_speed: float = DRAGON_SCROLL_SPEED
 
+# Debug-only convenience so we can test flight feel / obstacles without dying
+# constantly. Never exposed outside debug builds -- see game.gd, which only
+# shows the toggle when OS.is_debug_build() is true.
+var debug_invincible: bool = false
+
 var game_scene: PackedScene = preload("res://scenes/game/game.tscn")
 var main_scene: PackedScene = preload("res://scenes/main/main.tscn")
 
@@ -87,6 +92,10 @@ func switch_form() -> void:
 func reset_form() -> void:
 	current_form = Form.DRAGON
 	_current_scroll_speed = DRAGON_SCROLL_SPEED
+
+
+func toggle_debug_invincible() -> void:
+	debug_invincible = not debug_invincible
 
 
 func load_game_scene() -> void:

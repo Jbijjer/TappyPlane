@@ -48,6 +48,8 @@ func _apply_form_visual(form: int) -> void:
 
 
 func die() -> void:
+	if GameManager.debug_invincible == true:
+		return
 	if _dead == true:
 		return
 	_dead = true
