@@ -3,3 +3,6 @@
 
 # Editor temp/backup files
 *.tmp
+
+# Local export builds
+build/
