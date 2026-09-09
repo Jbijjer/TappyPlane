@@ -27,6 +27,10 @@ const DRAGON_SCROLL_SPEED_DEFAULT: float = 60.0
 const UNICORN_SCROLL_SPEED_DEFAULT: float = 170.0
 const SCROLL_SPEED_SMOOTHING_DEFAULT: float = 3.5
 
+# 0 == no cap (velocity.y grows unbounded, as before this existed).
+const DRAGON_MAX_FALL_SPEED_DEFAULT: float = 0.0
+const UNICORN_MAX_FALL_SPEED_DEFAULT: float = 0.0
+
 const PIPES_SPAWN_INTERVAL_DEFAULT: float = 1.35
 const PIPES_GAP_MIN_Y_DEFAULT: float = 352.0
 const PIPES_GAP_MAX_Y_DEFAULT: float = 526.0
@@ -42,6 +46,9 @@ var unicorn_power: float = UNICORN_POWER_DEFAULT
 var dragon_scroll_speed: float = DRAGON_SCROLL_SPEED_DEFAULT
 var unicorn_scroll_speed: float = UNICORN_SCROLL_SPEED_DEFAULT
 var scroll_speed_smoothing: float = SCROLL_SPEED_SMOOTHING_DEFAULT
+
+var dragon_max_fall_speed: float = DRAGON_MAX_FALL_SPEED_DEFAULT
+var unicorn_max_fall_speed: float = UNICORN_MAX_FALL_SPEED_DEFAULT
 
 var pipes_spawn_interval: float = PIPES_SPAWN_INTERVAL_DEFAULT
 var pipes_gap_min_y: float = PIPES_GAP_MIN_Y_DEFAULT
@@ -63,6 +70,8 @@ const TUNABLE_PARAMS := [
 	{"key": "dragon_scroll_speed", "label": "Dragon — Vitesse horizontale", "description": "Vitesse à laquelle le monde défile en forme dragon.", "default": DRAGON_SCROLL_SPEED_DEFAULT, "min": 20.0, "max": 400.0, "step": 5.0},
 	{"key": "unicorn_scroll_speed", "label": "Licorne — Vitesse horizontale", "description": "Vitesse à laquelle le monde défile en forme licorne.", "default": UNICORN_SCROLL_SPEED_DEFAULT, "min": 20.0, "max": 400.0, "step": 5.0},
 	{"key": "scroll_speed_smoothing", "label": "Transition de vitesse", "description": "Vitesse à laquelle le scroll accélère/ralentit au changement de forme. Plus haut = transition plus brusque.", "default": SCROLL_SPEED_SMOOTHING_DEFAULT, "min": 0.5, "max": 15.0, "step": 0.1},
+	{"key": "dragon_max_fall_speed", "label": "Dragon — Vitesse de chute max", "description": "Plafond de vitesse de chute (0 = pas de limite).", "default": DRAGON_MAX_FALL_SPEED_DEFAULT, "min": 0.0, "max": 3000.0, "step": 10.0},
+	{"key": "unicorn_max_fall_speed", "label": "Licorne — Vitesse de chute max", "description": "Plafond de vitesse de chute (0 = pas de limite).", "default": UNICORN_MAX_FALL_SPEED_DEFAULT, "min": 0.0, "max": 3000.0, "step": 10.0},
 	{"key": "pipes_spawn_interval", "label": "Tuyaux — Fréquence", "description": "Secondes entre chaque tuyau. Plus bas = plus fréquent.", "default": PIPES_SPAWN_INTERVAL_DEFAULT, "min": 0.3, "max": 4.0, "step": 0.05},
 	{"key": "pipes_gap_min_y", "label": "Tuyaux — Hauteur min", "description": "Position Y minimale possible du passage.", "default": PIPES_GAP_MIN_Y_DEFAULT, "min": 100.0, "max": 700.0, "step": 5.0},
 	{"key": "pipes_gap_max_y", "label": "Tuyaux — Hauteur max", "description": "Position Y maximale possible du passage.", "default": PIPES_GAP_MAX_Y_DEFAULT, "min": 100.0, "max": 700.0, "step": 5.0},
@@ -152,6 +161,10 @@ func get_gravity() -> float:
 
 func get_power() -> float:
 	return dragon_power if current_form == Form.DRAGON else unicorn_power
+
+
+func get_max_fall_speed() -> float:
+	return dragon_max_fall_speed if current_form == Form.DRAGON else unicorn_max_fall_speed
 
 
 func switch_form() -> void:

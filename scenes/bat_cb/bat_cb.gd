@@ -24,6 +24,10 @@ func _process(delta):
 func _physics_process(delta):
 	velocity.y += GameManager.get_gravity() * delta
 
+	var max_fall_speed = GameManager.get_max_fall_speed()
+	if max_fall_speed > 0.0:
+		velocity.y = min(velocity.y, max_fall_speed)
+
 	fly()
 
 	move_and_slide()
