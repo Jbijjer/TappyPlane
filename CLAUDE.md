@@ -84,6 +84,40 @@ global name in such a script** — that identifier isn't resolved when
 script and confirm `git status` is clean before committing — it's scratch
 tooling, never part of the repo.
 
+**`Input.action_press("some_action")` does NOT test GUI input handling.**
+It only sets the polled `Input` singleton's action state — fine for
+validating code that checks `Input.is_action_just_pressed(...)` (like the
+flight tap in `bat_cb.gd`), but it never drives real GUI hit-testing, so it
+cannot catch bugs in anything using `_unhandled_input`, `_gui_input`, or a
+Control's `pressed` signal. To actually test those, inject a real event:
+
+```gdscript
+var ev = InputEventMouseButton.new()
+ev.button_index = MOUSE_BUTTON_LEFT
+ev.position = Vector2(240, 400)      # set both position and global_position
+ev.global_position = Vector2(240, 400)
+ev.pressed = true
+Input.parse_input_event(ev)
+# ...then a matching event with pressed = false to release it.
+```
+This needs the real rendering pipeline (`xvfb-run -a godot4 --rendering-driver
+opengl3 ...`), not `--headless` — GUI hit-testing did not behave correctly
+against a bare headless display in testing here.
+
+**Every `Control` defaults to `mouse_filter = STOP` (value `0`)**, including
+the scene's own root Control and purely decorative nodes (a full-screen
+background `TextureRect`, a `MarginContainer`, `Label`s) that have no
+`_gui_input` logic of their own. `STOP` still marks the click as GUI-handled
+and blocks it from ever reaching `_unhandled_input`, or from reaching a
+sibling Control underneath. This bit once already: switching
+`main.gd`'s "tap anywhere to start" from polled `Input.is_action_just_pressed`
+to `_unhandled_input` (to stop it double-firing alongside the Settings
+button) silently broke starting the game from everywhere except the button
+itself, because `main.tscn`'s background/labels/root were all still on the
+default. Fix is `mouse_filter = 2` (`MOUSE_FILTER_IGNORE`) on every
+non-interactive Control that overlaps a tap target meant for something else
+— not just the obvious background image, the scene's own root Control too.
+
 ### Android APK export
 
 `export_presets.cfg` has `gradle_build/use_gradle_build=false`, so this uses
