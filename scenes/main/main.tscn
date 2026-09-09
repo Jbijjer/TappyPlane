@@ -67,6 +67,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_sl8d3")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -80,6 +81,7 @@ offset_right = 740.0
 offset_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 scale = Vector2(0.759999, 1)
 texture = ExtResource("2_br6uy")
 
@@ -90,6 +92,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 12
@@ -98,6 +101,7 @@ theme_override_constants/margin_bottom = 24
 [node name="Label" type="Label" parent="MC"]
 layout_mode = 2
 size_flags_vertical = 0
+mouse_filter = 2
 text = "FLAPPY
 DRAGON"
 label_settings = ExtResource("3_ncbh5")
@@ -106,8 +110,9 @@ vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="MC"]
 layout_mode = 2
-text = "APPUYER 
-POUR 
+mouse_filter = 2
+text = "APPUYER
+POUR
 COMMENCER"
 label_settings = SubResource("LabelSettings_ic6is")
 horizontal_alignment = 1
@@ -115,17 +120,20 @@ vertical_alignment = 1
 
 [node name="HB" type="HBoxContainer" parent="MC"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HighScoreLabel" type="Label" parent="MC/HB"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
+mouse_filter = 2
 text = "HIGHSCORE:"
 label_settings = SubResource("LabelSettings_qdhe4")
 
 [node name="HighScoreLabel2" type="Label" parent="MC/HB"]
 layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 text = "000"
 label_settings = SubResource("LabelSettings_qdhe4")
 
