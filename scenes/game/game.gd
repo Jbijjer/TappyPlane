@@ -7,7 +7,6 @@ var near_miss_fx_scene = preload("res://scenes/near_miss_fx/near_miss_fx.tscn")
 
 @onready var pipes_holder = $PipesHolder
 @onready var flames_holder = $FlamesHolder
-@onready var spawn_u = $SpawnU
 @onready var spawn_l = $SpawnL
 @onready var spawn_timer = $PipesSpawnTimer
 @onready var game_over_sound = $GameOverSound
@@ -24,6 +23,8 @@ func _ready():
 	GameManager.on_near_miss.connect(on_near_miss)
 	debug_invincible_button.visible = OS.is_debug_build()
 	debug_invincible_button.button_pressed = GameManager.debug_invincible
+	spawn_timer.wait_time = GameManager.pipes_spawn_interval
+	flames_spawn_timer.wait_time = GameManager.flames_spawn_interval
 	spawn_pipes()
 
 
@@ -32,17 +33,17 @@ func _process(delta):
 	pass
 	
 func spawn_pipes() -> void:
-	var y_pos = randf_range(spawn_u.position.y, spawn_l.position.y)
+	var y_pos = randf_range(GameManager.pipes_gap_min_y, GameManager.pipes_gap_max_y)
 	var new_pipes = pipes_scene.instantiate()
-	
+
 	new_pipes.position = Vector2(spawn_l.position.x, y_pos)
 	pipes_holder.add_child(new_pipes)
 
-	
+
 func spawn_flames() -> void:
-	var y_pos = randf_range(spawn_u.position.y, spawn_l.position.y)
+	var y_pos = randf_range(GameManager.flames_gap_min_y, GameManager.flames_gap_max_y)
 	var new_flame = flames_scene.instantiate()
-	
+
 	new_flame.position = Vector2(spawn_l.position.x + 50, y_pos)
 	flames_holder.add_child(new_flame)
 

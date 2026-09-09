@@ -138,3 +138,21 @@ autoplay = "flash"
 libraries = {
 "": SubResource("AnimationLibrary_6jgd6")
 }
+
+[node name="SettingsButton" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -60.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "RÉGLAGES"
+
+[connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]

@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqf3n8x2m7wtd"]
+
+[ext_resource type="Script" path="res://scenes/settings/settings.gd" id="1_settings"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_settings")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.07, 0.09, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 10.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_font_sizes/font_size = 28
+text = "RÉGLAGES"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 52.0
+offset_bottom = 76.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.65, 0.65, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+text = "Appliqué à la prochaine partie — sauvegardé automatiquement"
+horizontal_alignment = 1
+
+[node name="HeaderHB" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 82.0
+offset_right = -8.0
+offset_bottom = 122.0
+grow_horizontal = 2
+theme_override_constants/separation = 8
+
+[node name="BackButton" type="Button" parent="HeaderHB"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "◀ RETOUR"
+
+[node name="ResetAllButton" type="Button" parent="HeaderHB"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "RÉINITIALISER TOUT"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 128.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[connection signal="pressed" from="HeaderHB/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="HeaderHB/ResetAllButton" to="." method="_on_reset_all_button_pressed"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqf8m2n9x3wte"]
+
+[ext_resource type="Script" path="res://scenes/settings/tuning_row.gd" id="1_row"]
+
+[node name="TuningRow" type="VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
+script = ExtResource("1_row")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Param"
+
+[node name="DescLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.75, 0.75, 1)
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 2
+text = "Description (défaut : 0)"
+
+[node name="HB" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Slider" type="HSlider" parent="HB"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ValueLabel" type="Label" parent="HB"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+text = "0"
