@@ -13,7 +13,8 @@ func _process(_delta):
 		GameManager.on_glass_breaks.emit(animated_sprite_2d.global_position.x, animated_sprite_2d.global_position.y)
 	
 	
-func _on_body_entered(body):	
+func _on_body_entered(body):
 	if body.is_in_group(GameManager.GROUP_PLANE) == true:
-		animated_sprite_2d.play("explode")
+		if GameManager.debug_invincible == false:
+			animated_sprite_2d.play("explode")
 		body.die()
